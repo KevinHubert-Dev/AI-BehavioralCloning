@@ -1,10 +1,10 @@
 # **Behavioral Cloning** 
 
-Implementation and documentation by Kevin Hubert
-
 ## Intro
 
-The project was impelemted as the fourth project of the "Self-Driving car engineer" Nanodegree program at Udacity.com. My project contains the following parts to fulfill all requirements declared by udacity:
+The challenge of the project was to create a deep convolutional neual network to drive a car in a simulator by cloning the driving behavior based on a series of images recorded while a human has drove through the simulator previously. This project was part of the "Self-driving car engineer"-Nanodegree at Udacity.com
+
+My project contains the following parts to fulfill all requirements declared by udacity:
 - Use the simulator to collection driving behavior data
 - Build a neural network in keras to predict the steering angles based on the images collected and steering values in the simulator before
 - Train and validate the previous builded model using a training and validation set
