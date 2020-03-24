@@ -60,52 +60,41 @@ In the next step the model is created and trained. A summary of the model archit
 The model uses the adam-optimizer and "mse" (mean square error) as a loss-function.
   
 Model architecture:
-My model architecture is inspired by the following two architectures:
-- LeNet: https://miro.medium.com/max/4308/1*1TI1aGBZ4dybR6__DI9dzA.png
-- NVIDIA - Self driving car network: https://miro.medium.com/max/3236/1*HwZvJLpALucQkBuBCFDxKw.png
+My model architecture is inspired by the following two architectures combined:
+
+LeNet:
+![LeNet-CNN-architecture](./example_figures/lenet_architectur_cnn.png)
+
+NVIDIA - Self driving car network
+![LeNet-CNN-architecture](./example_figures/nvidia_architectur_cnn.png)
 
 I've decided to use a model inspired by both of the references models above, because using the LeNet-architecture my model seemed to underfit for the given dataset especially in the harder parts of the track (e.g. the bridge). On the other hand the NVIDIA model had alot of more layers/neurons which semmed to be way to complex for the given dataset (overfitting).
 Additional i've added dropouts of 0.3 (30%) after each conv-layer to avoid overfitting. Moreover there is no activation-function in the output-layer because the task for the network is to predict the steering-angle (floating-point-number from 0.0 - 25.0) which is a regressions- and not a classification-task.
   
 After training my models i've runned the model in autonoumous-mode in the simulator to see if it fits the expections. Especially at the begin i had a few models which underfitted the data (leave the street, drived out of the curve), later i had a few models which fit the data quite good but failed at specific positions in the track, e.g. on the bridge. The data-generation (horizontally image flipping) in combinations with dropouts (avoid overfitting) solved the problem for me. 
   
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #   
-=================================================================
-cropping2d_1 (Cropping2D)    (None, 90, 320, 3)        0         
-_________________________________________________________________
-lambda_1 (Lambda)            (None, 90, 320, 3)        0         
-_________________________________________________________________
-conv2d_1 (Conv2D)            (None, 43, 158, 6)        456       
-_________________________________________________________________
-dropout_1 (Dropout)          (None, 43, 158, 6)        0         
-_________________________________________________________________
-conv2d_2 (Conv2D)            (None, 20, 77, 32)        4832      
-_________________________________________________________________
-dropout_2 (Dropout)          (None, 20, 77, 32)        0         
-_________________________________________________________________
-conv2d_3 (Conv2D)            (None, 8, 37, 24)         19224     
-_________________________________________________________________
-dropout_3 (Dropout)          (None, 8, 37, 24)         0         
-_________________________________________________________________
-conv2d_4 (Conv2D)            (None, 2, 17, 24)         14424     
-_________________________________________________________________
-dropout_4 (Dropout)          (None, 2, 17, 24)         0         
-_________________________________________________________________
-flatten_1 (Flatten)          (None, 816)               0         
-_________________________________________________________________
-dense_1 (Dense)              (None, 120)               98040     
-_________________________________________________________________
-dense_2 (Dense)              (None, 84)                10164     
-_________________________________________________________________
-dense_3 (Dense)              (None, 10)                850       
-_________________________________________________________________
-dense_4 (Dense)              (None, 1)                 11        
-=================================================================
-Total params: 148,001
-Trainable params: 148,001
-Non-trainable params: 0
-_________________________________________________________________
+
+| Layer (type)              | Output Shape         | Param #    |
+| :------------------------ | :------------------- | :--------: |
+| cropping2d_1 (Cropping2D) | (None, 90, 320, 3)   |    0       |
+| lambda_1 (Lambda)         | (None, 90, 320, 3)   |    0       |
+| conv2d_1 (Conv2D)         | (None, 43, 158, 6)   |    456     |
+| dropout_1 (Dropout)       | (None, 43, 158, 6)   |    0       |
+| conv2d_2 (Conv2D)         | (None, 20, 77, 32)   |    4832    |
+| dropout_2 (Dropout)       | (None, 20, 77, 32)   |    0       |
+| conv2d_3 (Conv2D)         | (None, 8, 37, 24)    |    19224   |
+| dropout_3 (Dropout)       | (None, 8, 37, 24)    |    0       |
+| conv2d_4 (Conv2D)         | (None, 2, 17, 24)    |    14424   |
+| dropout_4 (Dropout)       | (None, 2, 17, 24)    |    0       |
+| flatten_1 (Flatten)       | (None, 816)          |    0       |
+| dense_1 (Dense)           | (None, 120)          |    98040   |
+| dense_2 (Dense)           | (None, 84)           |    10164   |
+| dense_3 (Dense)           | (None, 10)           |    850     |
+| dense_4 (Dense)           | (None, 1)            |    11      |
+
+- **Total params**: 148,001
+- **Trainable params**: 148,001
+- **Non-trainable params**: 0
 
   
 ## Appropriate training data
